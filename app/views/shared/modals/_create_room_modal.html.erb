@@ -38,7 +38,7 @@
               </span>
               <%= f.label :access_code, t("modal.create_room.access_code_placeholder"), id: "create-room-access-code", class: "form-control", role: "log" %>
               <%= f.hidden_field :access_code %>
-              <span onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="reset-access-code" tabindex="0" aria-label='<%= t("modal.create_room.reset_access_code") %>' >
+              <span hidden onclick="ResetAccessCode()" class="input-icon-addon allow-icon-click cursor-pointer" id="reset-access-code" tabindex="0" aria-label='<%= t("modal.create_room.reset_access_code") %>' >
                 <i class="far fa-trash-alt"></i>
               </span>
             </div>
