@@ -19,15 +19,18 @@
     <% if legal_url.present? %>
       <span>
         |
-        <%= link_to(t("footer.legal"), legal_url) %>
+	<%= link_to(t("footer.legal"), legal_url) %>
       </span> 
     <% end %>
     <% if privpolicy_url.present? %>
       <span>
         |
-        <%= link_to(t("footer.privpolicy"), privpolicy_url)  %>
+	<%= link_to(t("footer.privpolicy"), privpolicy_url)  %>
       </span>
     <% end %>
+  </p>
+  <p style="text-align:center;">
+	Concentrix's internal systems must only be used for conducting Concentrix business or for purposes authorized by Concentrix management.
   </p>
 </footer>
 

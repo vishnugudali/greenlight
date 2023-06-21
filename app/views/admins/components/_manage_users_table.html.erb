@@ -56,17 +56,17 @@
                       <%= render "admins/components/admins_role", role: user.role %>
                     </td>
                     <td>
-                      <% if !user.has_role?("super_admin") %>
+                      <% if !user.has_role?("super_admin") && !user.deleted %>
                         <div class="item-action dropdown">
                           <a href="javascript:void(0)" data-toggle="dropdown" class="icon">
                             <i class="fas fa-ellipsis-v px-4"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu">
                             <% if user.deleted? %>
-                              <%= button_to admin_undelete_path(user_uid: user.uid), class: "dropdown-item", "data-disable": "" do %>
+                              <%= button_to admin_undelete_path(user_uid: user.uid), hidden: "true", class: "dropdown-item", "data-disable": "" do %>
                                 <i class="dropdown-icon fas fa-recycle"></i> <%= t("administrator.users.settings.undelete") %>
                               <% end %>
-                              <button class="delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid, permanent: "true") %>" data-toggle="modal" data-target="#deleteAccountModal">
+                              <button hidden="true "class="delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid, permanent: "true") %>" data-toggle="modal" data-target="#deleteAccountModal">
                                 <i class="dropdown-icon fas fa-skull-crossbones"></i> <%= t("administrator.users.settings.perm_delete") %>
                               </button>
                             <% elsif user.has_role?("denied") %>
@@ -87,18 +87,18 @@
                               <%= link_to admin_edit_user_path(user_uid: user.uid), class: "dropdown-item" do %>
                                 <i class="dropdown-icon fas fa-user-edit"></i> <%= t("administrator.users.settings.edit") %>
                               <% end %>
-                              <button class= "merge-user dropdown-item" data-path="<%= merge_user_path(user_uid: user.uid) %>" data-info="<%= user.slice(:name, :email, :uid).to_json %>" data-toggle="modal" data-target="#mergeUserModal">
+                              <button hidden="true" class= "merge-user dropdown-item" data-path="<%= merge_user_path(user_uid: user.uid) %>" data-info="<%= user.slice(:name, :email, :uid).to_json %>" data-toggle="modal" data-target="#mergeUserModal">
                                 <i class="dropdown-icon fas fa-user-friends"></i> <%= t("administrator.users.settings.merge") %>
                               </button>
                               <% unless user.rooms.length.zero? %>
-                                <%= link_to admin_recordings_path(search: user.email), class: "dropdown-item" do %>
+                                <%= link_to admin_recordings_path(search: user.email), class: "dropdown-item", hidden: "true" do %>
                                   <i class="dropdown-icon fas fa-video"></i> <%= t("administrator.rooms.table.recordings") %>
                                 <% end %>
                               <% end %>
-                              <%= button_to admin_ban_path(user_uid: user.uid), class: "dropdown-item", "data-disable": "" do %>
+                              <%= button_to admin_ban_path(user_uid: user.uid), hidden: "true", class: "dropdown-item", "data-disable": "" do %>
                                 <i class="dropdown-icon fas fa-lock"></i> <%= t("administrator.users.settings.ban") %>
                               <% end %>
-                              <button class= "delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid) %>" data-delete="temp-delete" data-toggle="modal" data-target="#deleteAccountModal">
+                              <button hidden="true" class= "delete-user dropdown-item" data-path="<%= delete_user_path(user_uid: user.uid) %>" data-delete="temp-delete" data-toggle="modal" data-target="#deleteAccountModal">
                                 <i class="dropdown-icon fas fa-user-minus"></i> <%= t("administrator.users.settings.delete") %>
                               </button>
                             <% end %>

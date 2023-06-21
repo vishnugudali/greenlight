@@ -87,6 +87,7 @@ class UsersController < ApplicationController
     if session[:prev_url].present?
       path = session[:prev_url]
       session.delete(:prev_url)
+      @user.modified_by=current_user.email
     else
       path = admins_path
     end

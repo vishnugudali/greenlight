@@ -19,10 +19,10 @@
       <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'active' %>" id="Active" href="?tab=active" role="tab" aria-selected="true"><i class="fas mr-3 fa-users"></i>
         <%= t("roles.active") %>
       </a>
-      <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'pending' %>" id="Pending" href="?tab=pending" role="tab" aria-selected="false"><i class="fas mr-3 fa-user-clock"></i>
+      <a hidden="true" class="nav-item p-3 nav-link <%= 'active' if @tab == 'pending' %>" id="Pending" href="?tab=pending" role="tab" aria-selected="false"><i class="fas mr-3 fa-user-clock"></i>
         <%= t("roles.pending") %>
       </a>
-      <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'denied' %>" id="Denied" href="?tab=denied" role="tab" aria-selected="false"><i class="fas mr-3 fa-user-times"></i>
+      <a hidden="true" class="nav-item p-3 nav-link <%= 'active' if @tab == 'denied' %>" id="Denied" href="?tab=denied" role="tab" aria-selected="false"><i class="fas mr-3 fa-user-times"></i>
         <%= t("roles.banned") %>
       </a>
       <a class="nav-item p-3 nav-link <%= 'active' if @tab == 'deleted' %>" id="Deleted" href="?tab=deleted" role="tab" aria-selected="false"><i class="far mr-2 fa-trash-alt"></i>
