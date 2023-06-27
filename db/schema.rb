@@ -165,4 +165,17 @@ ActiveRecord::Schema.define(version: 2023_06_08_114547) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  create_table "usr_audits", force: :cascade do |t|
+    t.string "uid"
+    t.string "name"
+    t.string "username"
+    t.string "email"
+    t.string "modified_by"
+    t.string "event_type"
+    t.bigint "from_role"
+    t.bigint "to_role"
+    t.datetime "last_login"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end

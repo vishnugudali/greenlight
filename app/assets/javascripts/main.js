@@ -22,6 +22,16 @@ document.addEventListener("turbolinks:before-cache", function() {
   $(".alert").remove()
 })
 
+ window.addEventListener("beforeunload", function (e) {       
+	console.log("before Unload event!");	
+      $.ajax({
+          type: "POST",
+          url: "/u/logout",
+          async: false           
+      });
+      return;
+	 console.log("logout triggered!");
+ });
 // Gets the localized string
 function getLocalizedString(key) {
   var keyArr = key.split(".")

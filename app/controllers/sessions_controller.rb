@@ -101,10 +101,31 @@ class SessionsController < ApplicationController
 flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_password?(session_params[:password])
 
     login(user)
+    @audLog=UsrAudit.new()
+    @audLog.uid=user.uid
+    @audLog.name=user.name
+    @audLog.username=user.email
+    @audLog.email=user.email
+    @audLog.modified_by=''
+    @audLog.to_role=user.role_id
+    @audLog.from_role=user.role_id
+    @audLog.event_type='login'
+    @audLog.save
   end
 
   # POST /users/logout
   def destroy
+    logger.info " in destroy for loggingout..."
+    @audLog=UsrAudit.new
+    @audLog.uid=current_user.uid
+    @audLog.name=current_user.name
+    @audLog.username=current_user.email
+    @audLog.email=current_user.email
+    @audLog.modified_by=current_user.email
+    @audLog.to_role=current_user.role_id
+    @audLog.from_role=current_user.role_id
+    @audLog.event_type='logout'
+    @audLog.save
     logout
     redirect_to root_path
   end

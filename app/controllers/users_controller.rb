@@ -88,6 +88,16 @@ class UsersController < ApplicationController
       path = session[:prev_url]
       session.delete(:prev_url)
       @user.modified_by=current_user.email
+      @audLog=UsrAudit.new()
+      @audLog.uid=@user.uid
+      @audLog.name=@user.name
+      @audLog.username=@user.email
+      @audLog.email=@user.email
+      @audLog.modified_by=current_user.email
+      @audLog.to_role=params[:user][:role_id]
+      @audLog.from_role=@user.role_id
+      @audLog.event_type='edit'
+      @audLog.save
     else
       path = admins_path
     end
