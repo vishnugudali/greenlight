@@ -101,7 +101,8 @@ class SessionsController < ApplicationController
 flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_password?(session_params[:password])
 
     login(user)
-    @audLog=UsrAudit.new()
+    @audLog=UserAudit.new()
+    @audLog.userfkey=current_user.id
     @audLog.uid=user.uid
     @audLog.name=user.name
     @audLog.username=user.email
@@ -109,14 +110,16 @@ flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_pa
     @audLog.modified_by=''
     @audLog.to_role=user.role_id
     @audLog.from_role=user.role_id
-    @audLog.event_type='login'
+   # @audLog.last_login=@user.last_login
+    @audLog.event_type='LOGIN'
     @audLog.save
   end
 
   # POST /users/logout
   def destroy
     logger.info " in destroy for loggingout..."
-    @audLog=UsrAudit.new
+    @audLog=UserAudit.new
+    @audLog.userfkey=current_user.id
     @audLog.uid=current_user.uid
     @audLog.name=current_user.name
     @audLog.username=current_user.email
@@ -124,7 +127,8 @@ flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_pa
     @audLog.modified_by=current_user.email
     @audLog.to_role=current_user.role_id
     @audLog.from_role=current_user.role_id
-    @audLog.event_type='logout'
+    #@audLog.last_login=@user.last_login
+    @audLog.event_type='LOGOUT'
     @audLog.save
     logout
     redirect_to root_path
