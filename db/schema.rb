@@ -165,7 +165,8 @@ ActiveRecord::Schema.define(version: 2023_06_08_114547) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  create_table "usr_audits", force: :cascade do |t|
+  create_table "user_audits", force: :cascade do |t|
+    t.string "userfkey"
     t.string "uid"
     t.string "name"
     t.string "username"
