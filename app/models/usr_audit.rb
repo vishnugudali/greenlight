@@ -1,3 +1,0 @@
-class UsrAudit < ApplicationRecord
-end
-
