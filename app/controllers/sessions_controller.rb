@@ -110,7 +110,9 @@ flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_pa
     @audLog.modified_by=''
     @audLog.to_role=user.role_id
     @audLog.from_role=user.role_id
-   # @audLog.last_login=@user.last_login
+    @audLog.last_login=user.last_login
+    @audLog.created_at=user.created_at
+    @audLog.updated_at=DateTime.now
     @audLog.event_type='LOGIN'
     @audLog.save
   end
@@ -127,7 +129,9 @@ flash: { alert: I18n.t("registration.insecure_password") } unless User.secure_pa
     @audLog.modified_by=current_user.email
     @audLog.to_role=current_user.role_id
     @audLog.from_role=current_user.role_id
-    #@audLog.last_login=@user.last_login
+    @audLog.last_login=current_user.last_login
+    @audLog.created_at=current_user.created_at
+    @audLog.updated_at=DateTime.now
     @audLog.event_type='LOGOUT'
     @audLog.save
     logout

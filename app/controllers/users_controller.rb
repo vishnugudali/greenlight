@@ -97,7 +97,9 @@ class UsersController < ApplicationController
       @audLog.modified_by=current_user.email
       @audLog.to_role=params[:user][:role_id]
       @audLog.from_role=@user.role_id
-      #@audLog.last_login=@user.last_login
+      @audLog.last_login=@user.last_login
+      @audLog.created_at=@user.created_at
+      @audLog.updated_at=DateTime.now
       @audLog.event_type='MODIFY'
       @audLog.save
     else
