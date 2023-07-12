@@ -39,6 +39,20 @@ class ApplicationController < ActionController::Base
     # This will logout any logged user with an idle session.
     if @current_user && Time.now.to_i >= session[:latest_interaction] + Rails.configuration.session_idle_timeout
       reset_session
+      @audLog=UserAudit.new
+      @audLog.userfkey=current_user.id
+      @audLog.uid=current_user.uid
+      @audLog.name=current_user.name
+      @audLog.username=current_user.email
+      @audLog.email=current_user.email
+      @audLog.modified_by=current_user.email
+      @audLog.to_role=current_user.role_id
+      @audLog.from_role=current_user.role_id
+      @audLog.last_login=current_user.last_login
+      @audLog.created_at=current_user.created_at
+      @audLog.updated_at=DateTime.now
+      @audLog.event_type='TIME_OUT'
+      @audLog.save
       redirect_to root_path, flash: { alert: I18n.t("session.idle_timeout") } and return
     end
     session[:latest_interaction] = Time.now.to_i # This updates the latest_interaction metadata on each request.
