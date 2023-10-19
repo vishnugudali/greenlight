@@ -81,5 +81,8 @@ module Greenlight
     # Fetch 'RELATIVE_URL_ROOT' ENV variable value while removing any trailing slashes.
     config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', nil)&.sub(%r{/*\z}, '')
     config.relative_url_root = '/' if config.relative_url_root.blank?
+
+    # Session idle timeout (in seconds.).
+    config.session_idle_timeout = ENV['SESSION_TIMEOUT'].to_i.zero? ? 10.minutes.to_i : ENV['SESSION_TIMEOUT'].to_i
   end
 end
