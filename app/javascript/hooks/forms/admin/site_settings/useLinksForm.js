@@ -26,19 +26,25 @@ export function useLinksFormValidation() {
   })), []);
 }
 
-export default function useLinksForm({ defaultValues: _defaultValues, ..._config } = {}) {
-  const { t, i18n } = useTranslation();
+export function useInputFormValidation() {
+  return useMemo(() => (yup.object({
+    value: yup.string().required(),
+  })), []);
+}
 
+export default function useLinksForm({ defaultValues: _defaultValues,id:_id, ..._config } = {}) {
+  const { t, i18n } = useTranslation();
+  console.log({_id});
   const fields = useMemo(() => ({
     value: {
-      placeHolder: t('forms.admin.site_settings.fields.value.placeholder'),
+      placeHolder: ( _id.id === "bannerForm" ? t('forms.admin.site_settings_banner.fields.value.placeholder'): t('forms.admin.site_settings.fields.value.placeholder')),
       hookForm: {
         id: 'value',
       },
     },
   }), [i18n.resolvedLanguage]);
-
-  const validationSchema = useLinksFormValidation();
+  
+  const validationSchema = (_id.id === "bannerForm" ? useInputFormValidation(): useLinksFormValidation()); // use text field  validation method
 
   const config = useMemo(() => ({
     ...{
@@ -60,3 +66,4 @@ export default function useLinksForm({ defaultValues: _defaultValues, ..._config
 
   return { methods, fields, reset };
 }
+

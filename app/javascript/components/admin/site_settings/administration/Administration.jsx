@@ -23,7 +23,7 @@ import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSi
 
 export default function Administration() {
   const { t } = useTranslation();
-  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy']);
+  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy','Banner']);
 
   return (
     <>
@@ -45,6 +45,16 @@ export default function Administration() {
           value={siteSettings?.PrivacyPolicy}
         />
       </Row>
+      <Row>
+        <h6> { t('admin.site_settings.administration.banner') } </h6>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_banner_headings') } </p>
+        <LinksForm
+          id="bannerForm"
+          mutation={() => useUpdateSiteSetting('Banner')}
+          value={siteSettings?.Banner}
+        />
+      </Row>
     </>
   );
 }
+

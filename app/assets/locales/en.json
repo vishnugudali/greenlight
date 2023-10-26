@@ -28,7 +28,7 @@
   "no_result_search_input": "Could not find any results for \"{{ searchInput }}\"",
   "action_permanent": "This action cannot be undone.",
   "homepage": {
-    "welcome_bbb": "Welcome to BigBlueButton.",
+    "welcome_bbb": "Welcome to QCOM.",
     "bigbluebutton_description": "BigBlueButton is an open source web conferencing system for online classes. The platform maximizes time for applied learning by enabling students to collaborate and receive feedback in real-time.",
     "greenlight_description": "Create your own rooms to host sessions, or join others using a short and convenient link.",
     "learn_more": "Learn more about BigBlueButton",
@@ -268,10 +268,13 @@
         "administration": "Administration",
         "terms": "Terms & Conditions",
         "privacy": "Privacy Policy",
+        "banner": "Banner",
         "privacy_policy": "Privacy Policy",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
+        "change_banner_headings": "Change the banner  that appears at the top of the page",
         "change_url": "Change URL",
+        "change_banner": "Change Banner",
         "enter_link": "Enter link here"
       },
       "settings": {
@@ -390,6 +393,7 @@
         "brand_image_updated": "The brand image has been updated.",
         "brand_image_deleted": "The brand image has been deleted.",
         "privacy_policy_updated": "The privacy policy has been updated.",
+        "banner_updated": "The banner has been updated.",
         "terms_of_service_updated": "The terms of service have been updated."
       },
       "recording": {
@@ -664,6 +668,13 @@
           }
         }
       },
+      "site_settings_banner": {
+        "fields": {
+          "value": {
+            "placeholder": "Enter banner here..."
+          }
+        }
+      },
       "roles": {
         "fields": {
           "name": {
@@ -675,3 +686,4 @@
     }
   }
 }
+

@@ -27,7 +27,7 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
   const { t } = useTranslation();
 
-  const { methods, fields } = useLinksForm({ defaultValues: { value } });
+  const { methods, fields } = useLinksForm({ defaultValues: { value } ,id:{id}});
 
   return (
     <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
@@ -39,7 +39,7 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
       />
       <Button id={`${id}-submit-btn`} className="mb-2 float-end" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
         {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        { t('admin.site_settings.administration.change_url') }
+        { id  === 'bannerForm' ? t('admin.site_settings.administration.change_banner') : t('admin.site_settings.administration.change_url') }
       </Button>
     </Form>
   );
@@ -50,3 +50,4 @@ LinksForm.propTypes = {
   mutation: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
+

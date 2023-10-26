@@ -52,6 +52,9 @@ export default function useUpdateSiteSetting(name) {
       case 'PrivacyPolicy':
         toast.success(t('toast.success.site_settings.privacy_policy_updated'));
         break;
+      case 'Banner':
+        toast.success(t('toast.success.site_settings.banner_updated'));
+        break;
       case 'TermsOfService':
         toast.success(t('toast.success.site_settings.terms_of_service_updated'));
         break;
@@ -74,3 +77,4 @@ export default function useUpdateSiteSetting(name) {
     },
   );
 }
+
