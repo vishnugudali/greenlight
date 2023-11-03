@@ -268,14 +268,15 @@
         "administration": "Administration",
         "terms": "Terms & Conditions",
         "privacy": "Privacy Policy",
-        "banner": "Banner",
+        "banner": "Maintenance Banner",
         "privacy_policy": "Privacy Policy",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
-        "change_banner_headings": "Change the banner  that appears at the top of the page",
+        "change_banner_headings": "Displays a Banner to inform the user of a scheduled maintenance",
         "change_url": "Change URL",
         "change_banner": "Change Banner",
-        "enter_link": "Enter link here"
+        "enter_link": "Enter link here",
+	"banner_default_value": "This instance of QCOM is for UAT ONLY.NO PRODUNCTION MEETINGs SHOULD BE HELD ON THIS INSTANCE"
       },
       "settings": {
         "settings": "Settings",

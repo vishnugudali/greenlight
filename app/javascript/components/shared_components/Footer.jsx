@@ -23,7 +23,7 @@ import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 export default function Footer() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
-  const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy']);
+  const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy','Banner']);
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center">
@@ -46,3 +46,4 @@ export default function Footer() {
     </footer>
   );
 }
+

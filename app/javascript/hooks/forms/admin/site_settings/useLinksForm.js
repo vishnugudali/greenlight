@@ -34,7 +34,6 @@ export function useInputFormValidation() {
 
 export default function useLinksForm({ defaultValues: _defaultValues,id:_id, ..._config } = {}) {
   const { t, i18n } = useTranslation();
-  console.log({_id});
   const fields = useMemo(() => ({
     value: {
       placeHolder: ( _id.id === "bannerForm" ? t('forms.admin.site_settings_banner.fields.value.placeholder'): t('forms.admin.site_settings.fields.value.placeholder')),
