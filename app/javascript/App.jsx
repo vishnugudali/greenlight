@@ -24,7 +24,7 @@ import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 import Title from './components/shared_components/utilities/Title';
-
+import Banner from './components/shared_components/Banner';
 export default function App() {
   const currentUser = useAuth();
   const location = useLocation();
@@ -52,6 +52,7 @@ export default function App() {
     <>
       <Title>BigBlueButton</Title>
       {(homePage || currentUser.signed_in) && <Header /> }
+      <Banner/>
       <Container className={pageHeight}>
         <Outlet />
       </Container>
@@ -64,3 +65,4 @@ export default function App() {
     </>
   );
 }
+

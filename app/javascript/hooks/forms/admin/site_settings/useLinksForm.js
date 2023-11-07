@@ -28,7 +28,7 @@ export function useLinksFormValidation() {
 
 export function useInputFormValidation() {
   return useMemo(() => (yup.object({
-    value: yup.string().required(),
+    value: yup.string().optional(),
   })), []);
 }
 

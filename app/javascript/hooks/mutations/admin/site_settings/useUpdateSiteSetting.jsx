@@ -26,7 +26,7 @@ export default function useUpdateSiteSetting(name) {
 
   const uploadPresentation = (data) => {
     let settings;
-
+    console.log({data});
     if (name === 'BrandingImage') {
       fileValidation(data, 'image');
       settings = new FormData();
