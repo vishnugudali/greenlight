@@ -22,23 +22,19 @@ import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useLinksForm from '../../../../hooks/forms/admin/site_settings/useLinksForm';
-import { ButtonGroup } from 'react-bootstrap/ButtonGroup';
-import { ToggleButton } from 'react-bootstrap/ToggleButton';
-
 export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
   const { t } = useTranslation();
 
   const { methods, fields } = useLinksForm({ defaultValues: { value } ,id:{id}}); 
-  const [radioValue, setRadioValue] = React.useState('1');
-  const radios = [
-    { name: 'Set', value: '1' },
-    { name: 'Clear', value: '2' }
-   
-  ];
 
-  return (
-    <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
+  const handleClear = async () => {
+    methods.setValue('value', '');
+    await updateSiteSettingsAPI.mutate({value: ''});
+  };
+
+   return (
+    <Form id={id} methods={methods} onSubmit={(e) => e.preventDefault()}>
       <FormControl
         field={fields.value}
         aria-describedby={`${id}-submit-btn`}
@@ -47,20 +43,43 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
       />
     { id  === 'bannerForm' ?
 	    <>
-	    <Button id={`${id}-clear-btn`} className="mb-2 float-end clearbtn" variant="danger" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
-        {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        Clear
-</Button>
-	    <Button id={`${id}-submit-btn`} className="mb-2 float-end setBtn" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
-        {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        Set
-</Button>
+	    	<Button
+            id={`${id}-clear-btn`}
+            className="clearbtn mb-2 float-end"
+            variant="danger"
+            type="button"
+            onClick={handleClear}
+            disabled={updateSiteSettingsAPI.isLoading}
+          >
+            {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
+            Clear
+          </Button>
+ 
+          <Button
+            id={`${id}-submit-btn`}
+            className="setBtn mb-2 float-end"
+            variant="brand"
+            type="submit"
+            disabled={updateSiteSettingsAPI.isLoading}
+            onClick={methods.handleSubmit(updateSiteSettingsAPI.mutate)}
+          >
+            {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
+            Set
+          </Button>
 	    </>
         :
-	 <Button id={`${id}-submit-btn`} className="mb-2 float-end" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
-        {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        {t('admin.site_settings.administration.change_url') }
-</Button>}
+	    <Button
+              id={`${id}-submit-btn`}
+              className="mb-2 float-end"
+              variant="brand"
+              type="submit"
+              disabled={updateSiteSettingsAPI.isLoading}
+              onClick={methods.handleSubmit(updateSiteSettingsAPI.mutate)}
+            >
+              {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
+              {t('admin.site_settings.administration.change_url')}
+            </Button> 
+            }
 	    </Form>
   );
 }
@@ -70,4 +89,5 @@ LinksForm.propTypes = {
   mutation: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
+
 
