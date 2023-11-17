@@ -22,20 +22,13 @@ import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useLinksForm from '../../../../hooks/forms/admin/site_settings/useLinksForm';
-import { ButtonGroup } from 'react-bootstrap/ButtonGroup';
-import { ToggleButton } from 'react-bootstrap/ToggleButton';
 
 export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
   const { t } = useTranslation();
 
   const { methods, fields } = useLinksForm({ defaultValues: { value } ,id:{id}}); 
-  const [radioValue, setRadioValue] = React.useState('1');
-  const radios = [
-    { name: 'Set', value: '1' },
-    { name: 'Clear', value: '2' }
-   
-  ];
+  
   const handleClear = async () => {
     methods.setValue('value', '');
     await updateSiteSettingsAPI.mutate({value: ''});
