@@ -26,6 +26,7 @@ import App from './App';
 import Signup from './components/users/authentication/Signup';
 import SignIn from './components/users/authentication/SignIn';
 import AuthProvider from './contexts/auth/AuthProvider';
+import { SessionProvider } from './contexts/auth/SessionContext';
 import Profile from './components/users/user/Profile';
 import Room from './components/rooms/room/Room';
 import Rooms from './components/rooms/Rooms';
@@ -115,7 +116,9 @@ render(
   <React.Suspense fallback={<></>}>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <SessionProvider>
+          <RouterProvider router={router} />
+        </SessionProvider>
       </AuthProvider>
     </QueryClientProvider>
   </React.Suspense>,
