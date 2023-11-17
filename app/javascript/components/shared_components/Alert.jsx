@@ -1,0 +1,39 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+ 
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+ 
+export default function Alert(setAlert) {
+  const { t } = useTranslation();
+ return (
+  <>
+     <div className ="alert alert-danger alert-dismissible text-center mb-0" role="alert">
+    {t('toast.success.session.session_expired')}
+      <button type="button" className="close" data-dismiss="alert" aria-label="Close"
+      onClick={() => {
+          setAlert();
+          window.sessionStorage.setItem("ShowAlert", false);
+          }}>
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+    </>
+
+  );
+
+}
+

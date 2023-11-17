@@ -24,6 +24,7 @@ import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 import Title from './components/shared_components/utilities/Title';
+import Alert from './components/shared_components/Alert';
 import Banner from './components/shared_components/Banner';
 export default function App() {
   const currentUser = useAuth();
@@ -32,7 +33,7 @@ export default function App() {
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
   const homePage = location.pathname === '/';
   const pageHeight = (homePage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
-
+  const setAlert = () =>{  setShowAlert(false); }
   // i18n
   const { i18n } = useTranslation();
   useEffect(() => {
@@ -41,7 +42,9 @@ export default function App() {
 
   // Greenlight V3 brand-color theming
   const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);
-
+  const ShowAlert= (window.sessionStorage.getItem("ShowAlert") ? JSON.parse(window.sessionStorage.getItem("ShowAlert")): false );
+  console.log('---------> ' ,ShowAlert);
+  const [showAlert, setShowAlert] = React.useState(ShowAlert);
   if (isLoading) return null;
 
   document.documentElement.style.setProperty('--brand-color', brandColors.PrimaryColor);
@@ -52,6 +55,7 @@ export default function App() {
     <>
       <Title>BigBlueButton</Title>
       {(homePage || currentUser.signed_in) && <Header /> }
+      {showAlert && <Alert  setAlert= {setAlert()}/>}
       <Banner/>
       <Container className={pageHeight}>
         <Outlet />

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Navigate, Outlet, useLocation, useMatch,
 } from 'react-router-dom';
@@ -30,6 +30,41 @@ export default function AuthenticatedOnly() {
   const match = useMatch('/rooms/:friendlyId');
   const deleteSession = useDeleteSession({ showToast: false });
 
+  let logoutTimer;
+  console.log('initialized logoutTimer');
+  const startLogoutTimer = () => {
+    console.log('startLogoutTimer called');
+    // Set timeout for 10 minutes (600000 milliseconds)
+    logoutTimer = setTimeout(() => {
+        console.log('logoutTimer setTimeout');
+        deleteSession.mutate();
+	window.sessionStorage.setItem("ShowAlert", true);
+    }, 60000);
+};
+  const resetLogoutTimer = () => {
+    console.log('resetLogoutTimer called');
+    clearTimeout(logoutTimer);
+    startLogoutTimer();
+  };
+  useEffect(() => {
+    console.log('useEffect called');
+    // Start and reset the logout timer based on user activity
+    if (currentUser.signed_in) {
+        console.log('currentUser is signed in');
+        startLogoutTimer();
+
+        const events = ['mousemove', 'keydown', 'scroll', 'click'];
+        console.log('adding events')
+        events.forEach((event) => window.addEventListener(event, resetLogoutTimer));
+
+        return () => {
+            console.log('useEffect cleanup called');
+            clearTimeout(logoutTimer);
+            console.log('removing events');
+            events.forEach((event) => window.removeEventListener(event, resetLogoutTimer));
+        };
+    }
+}, [currentUser]);
   // User is either pending or banned
   if (currentUser.signed_in && (currentUser.status !== 'active' || !currentUser.verified)) {
     deleteSession.mutate();
@@ -53,5 +88,7 @@ export default function AuthenticatedOnly() {
     return <Navigate to="/" />;
   }
 
+
   return <Outlet />;
 }
+
