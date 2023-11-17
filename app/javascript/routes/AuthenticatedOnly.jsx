@@ -37,7 +37,7 @@ export default function AuthenticatedOnly() {
     logoutTimer = setTimeout(() => {
         deleteSession.mutate();
         triggerSessionExpiry();
-    }, 60000); // TODO: for prod, change to 10 minutes
+    }, 600000); // 10 minutes
 };
   const resetLogoutTimer = () => {
     clearTimeout(logoutTimer);
