@@ -21,6 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/auth/AuthProvider';
+import { useSession } from '../contexts/auth/SessionContext';
 import useDeleteSession from '../hooks/mutations/sessions/useDeleteSession';
 
 export default function AuthenticatedOnly() {
@@ -29,38 +30,30 @@ export default function AuthenticatedOnly() {
   const location = useLocation();
   const match = useMatch('/rooms/:friendlyId');
   const deleteSession = useDeleteSession({ showToast: false });
+  const { triggerSessionExpiry } = useSession();
 
   let logoutTimer;
-  console.log('initialized logoutTimer');
   const startLogoutTimer = () => {
-    console.log('startLogoutTimer called');
-    // Set timeout for 10 minutes (600000 milliseconds)
     logoutTimer = setTimeout(() => {
-        console.log('logoutTimer setTimeout');
         deleteSession.mutate();
-	window.sessionStorage.setItem("ShowAlert", true);
-    }, 60000);
+        triggerSessionExpiry();
+    }, 60000); // TODO: for prod, change to 10 minutes
 };
   const resetLogoutTimer = () => {
-    console.log('resetLogoutTimer called');
     clearTimeout(logoutTimer);
     startLogoutTimer();
   };
+
   useEffect(() => {
-    console.log('useEffect called');
     // Start and reset the logout timer based on user activity
     if (currentUser.signed_in) {
-        console.log('currentUser is signed in');
         startLogoutTimer();
 
         const events = ['mousemove', 'keydown', 'scroll', 'click'];
-        console.log('adding events')
         events.forEach((event) => window.addEventListener(event, resetLogoutTimer));
 
         return () => {
-            console.log('useEffect cleanup called');
             clearTimeout(logoutTimer);
-            console.log('removing events');
             events.forEach((event) => window.removeEventListener(event, resetLogoutTimer));
         };
     }

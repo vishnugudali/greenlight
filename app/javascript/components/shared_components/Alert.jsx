@@ -16,24 +16,16 @@
  
 import React from 'react';
 import { useTranslation } from 'react-i18next';
- 
-export default function Alert(setAlert) {
+
+export default function Alert({ setAlert }) {
   const { t } = useTranslation();
- return (
-  <>
-     <div className ="alert alert-danger alert-dismissible text-center mb-0" role="alert">
-    {t('toast.success.session.session_expired')}
-      <button type="button" className="close" data-dismiss="alert" aria-label="Close"
-      onClick={() => {
-          setAlert();
-          window.sessionStorage.setItem("ShowAlert", false);
-          }}>
-      <span aria-hidden="true">&times;</span>
+  
+  return (
+    <div className="alert alert-danger alert-dismissible text-center mb-0" role="alert">
+      {t('toast.success.session.session_expired')}
+      <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={setAlert}>
+        <span aria-hidden="true">&times;</span>
       </button>
-      </div>
-    </>
-
+    </div>
   );
-
 }
-
