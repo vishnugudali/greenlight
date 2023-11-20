@@ -23,7 +23,6 @@ export default function Banner() {
   const ShowBanner = (window.sessionStorage.getItem("ShowBanner") ? JSON.parse(window.sessionStorage.getItem("ShowBanner")): true );
   const [showAlert, setShowAlert] = React.useState(ShowBanner);
 
-  console.log({siteSetting});
   return (
   <>
     {showAlert && siteSetting !== "" && <div className ="alert alert-info alert-dismissible text-center mb-0" role="alert">
